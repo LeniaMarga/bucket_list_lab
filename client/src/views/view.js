@@ -19,7 +19,30 @@ View.prototype.populateDropdown = function(countries) {
   })
 
   // this.countries = countries;
+
+  select.addEventListener('change', function(event){
+    var index = this.value;
+    var country = countries[index];
+
+    updateInfo(country);
+
+  });
+
+  const updateInfo = function(country){
+    const ul = document.querySelector('#list-item');
+    const liName = document.createElement('li');
+    const liPopulation = document.createElement('li');
+    const liCapital = document.createElement('li');
+    liName.innerText = country.name;
+    ul.appendChild(liName);
+    liPopulation.innerText = country.population;
+    ul.appendChild(liPopulation);
+    liCapital.innerText = country.capital;
+    ul.appendChild(liCapital);
+  };
 }
+
+
 
 // View.prototype.render = function(country) {
 //
