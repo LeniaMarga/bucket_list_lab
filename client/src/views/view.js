@@ -1,5 +1,8 @@
+const Request = require('../services/request.js');
+
 const View = function(){
   this.countries = [];
+  this.currentCountry = null;
 };
 
 // View.prototype.add = function(country) {
@@ -18,13 +21,19 @@ View.prototype.populateDropdown = function(countries) {
     select.appendChild(option);
   })
 
-  // this.countries = countries;
+  this.countries = countries;
+
+
+
+
 
   select.addEventListener('change', function(event){
     var index = this.value;
     var country = countries[index];
 
     updateInfo(country);
+    updateApi(country);
+
 
   });
 
@@ -40,12 +49,23 @@ View.prototype.populateDropdown = function(countries) {
     liCapital.innerText = country.capital;
     ul.appendChild(liCapital);
   };
+
+  const updateApi = function(country){
+    const bucketList = new Request("http://localhost:3000/api/countries");
+    bucketList.post(country);
+  }
+
 }
 
 
 
-// View.prototype.render = function(country) {
-//
-// }
+View.prototype.updateFromOurAPI = function(){
+  const bucketList = new Request("http://localhost:3000/api/countries");
+  bucketList.get();
+}
+
+View.prototype.render = function(country) {
+
+}
 
 module.exports = View;
